@@ -1,13 +1,23 @@
-import os
-rollnumber = 'B356897'
-
 def make_html(rollnumber):
-    first = rollnumber[0]+rollnumber[1]+rollnumber[2]
-    second = rollnumber[3]+rollnumber[4]
-    if(os.system('wget http://gseb.org/522lacigam/sci/'+first+'/'+second+'/'+rollnumber+'.html')):
-        os.system('mv '+rollnumber+'.html ~/Project/Result')
-        return True
+    import os
+    first = rollnumber[:3]
+    second = rollnumber[3:5]
+    file_name = rollnumber + '.html'
+    if(os.path.isfile(file_name)):
+        pass
     else:
-        return False
+        try:
+            (os.system('wget http://gseb.org/522lacigam/sci/'+first+'/'+second+'/'+rollnumber+'.html'))
+        except:
+            print('No internet connection')
 
-make_html(rollnumber)
+
+def get_html(rollnumber):
+    import urllib.request
+    first = rollnumber[:3]
+    second = rollnumber[3:5]
+    file_name = rollnumber + '.html'
+    url = 'http://gseb.org/522lacigam/sci/'+first+'/'+second+'/'+rollnumber+'.html'
+
+    urllib.request.urlretrieve(url,file_name)
+    print(file_name+' downloaded')

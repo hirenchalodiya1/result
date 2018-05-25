@@ -1,24 +1,17 @@
 from bs4 import BeautifulSoup
-
-rollnumber = 'B123789'
-
+import os
 
 def analyse(rollnumber):
     with open(rollnumber + '.html', 'r') as content_file:
         file = content_file.read()
+    content_file.close()
     soup = BeautifulSoup(file, 'html.parser')
-    for tr in soup.find_all('tr'):
+    marks = []
+    for tr in soup.find_all('tr')[5:]:
         spans = tr.find_all('span')
         if(len(spans)<3):
-            None
+            pass
         else:
-            print(spans[0].get_text())
-
-        # for span in tr.find_all('span'):
-        #     spantext = span.get_text()
-        #     print(spantext)
-        # if spantext[0] is '013 ENGLISH (S.L.)':
-        #     print('English marks is'+spantext[0])
-
-
-analyse(rollnumber)
+            marks.append(spans[2].get_text())
+    os.system('rm '+rollnumber+'.html')
+    return marks
