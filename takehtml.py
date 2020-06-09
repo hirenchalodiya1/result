@@ -9,6 +9,7 @@ def make_html(rollnumber):
         try:
             url = f'http://gseb.org/285soipmahc/ssc/{first}/{second}/{rollnumber}.html'
             command = f'curl -v {url} -o {rollnumber}.html'
+            # command = f'wget {url}'
             os.system(command)
         except:
             print('No internet connection')
