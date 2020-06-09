@@ -88,32 +88,32 @@ def analyse_10(content):
             tds = tr.find_all('td')
             
             if len(tds) == 5 and tds[0].get_text() != 'Subject Name':
-                if tds[0].get_text() == '01 GUJARATI FL':
+                if tds[0].get_text().startswith('01'):
                     ret['guj_board'] = tds[1].get_text()
                     ret['guj_school'] = tds[2].get_text()
                     ret['guj_total'] = tds[3].get_text()
                     ret['guj_grade'] = tds[4].get_text()
-                elif tds[0].get_text() == '10 SOCIAL SCIENCE':
+                elif tds[0].get_text().startswith('10'):
                     ret['ss_board'] = tds[1].get_text()
                     ret['ss_school'] = tds[2].get_text()
                     ret['ss_total'] = tds[3].get_text()
                     ret['ss_grade'] = tds[4].get_text()
-                elif tds[0].get_text() == '11 SCIENCE':
+                elif tds[0].get_text().startswith('11'):
                     ret['sci_board'] = tds[1].get_text()
                     ret['sci_school'] = tds[2].get_text()
                     ret['sci_total'] = tds[3].get_text()
                     ret['sci_grade'] = tds[4].get_text()
-                elif tds[0].get_text() == '17 SANSKRIT SL':
+                elif tds[0].get_text().startswith('17'):
                     ret['san_board'] = tds[1].get_text()
                     ret['san_school'] = tds[2].get_text()
                     ret['san_total'] = tds[3].get_text()
                     ret['san_grade'] = tds[4].get_text()
-                elif tds[0].get_text() == '16 ENGLISH SL':
+                elif tds[0].get_text().startswith('16'):
                     ret['eng_board'] = tds[1].get_text()
                     ret['eng_school'] = tds[2].get_text()
                     ret['eng_total'] = tds[3].get_text()
                     ret['eng_grade'] = tds[4].get_text()
-                elif tds[0].get_text() == '12 MATHEMATICS':
+                elif tds[0].get_text().startswith('12'):
                     ret['math_board'] = tds[1].get_text()
                     ret['math_school'] = tds[2].get_text()
                     ret['math_total'] = tds[3].get_text()
