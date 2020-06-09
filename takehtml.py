@@ -2,13 +2,13 @@ def make_html(rollnumber):
     import os
     first = rollnumber[:3]
     second = rollnumber[3:5]
-    file_name = rollnumber + '.html'
+    file_name = f'temp/{rollnumber}.html'
     if(os.path.isfile(file_name)):
         pass
     else:
         try:
             url = f'http://gseb.org/285soipmahc/ssc/{first}/{second}/{rollnumber}.html'
-            command = f'curl -v {url} -o {rollnumber}.html'
+            command = f'curl -v {url} -o {file_name}'
             # command = f'wget {url}'
             os.system(command)
         except:

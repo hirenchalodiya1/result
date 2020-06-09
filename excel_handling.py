@@ -51,20 +51,25 @@ for sheet in readworkbook.sheets():
         roll = sheet.cell(row, 4).value
         roll = roll[0] + roll[2:]
         rl.append(roll)
-        make_html(roll)
-        # preparing url
-        # url = 'http://gseb.org/522lacigam/sci/{roll[:3]}/{roll[3:5]}/{roll}.html'
-        # res = requests.get(url)
-        print(f'{roll} looked up...')
-        # content = res.text
-        with open(f'{roll}.html', 'r') as f:
-            content = f.read()
-        ret = analyse_10(content)
-        for key, value in ret.items():
-            c_no = indecies.get(key, None)
-            if c_no:
-                worksheet.write(f'{c_no}{row+1}', value)
-
+        try:
+            make_html(roll)
+            # preparing url
+            # url = 'http://gseb.org/522lacigam/sci/{roll[:3]}/{roll[3:5]}/{roll}.html'
+            # res = requests.get(url)
+            # content = res.text
+            with open(f'temp/{roll}.html', 'r') as f:
+                content = f.read()
+            ret = analyse_10(content)
+            print(f'{roll} looked up...')
+            for key, value in ret.items():
+                c_no = indecies.get(key, None)
+                if c_no:
+                    worksheet.write(f'{c_no}{row+1}', value)
+        except KeyboardInterrupt:
+            exit(0)
+        except:
+            print(f'{roll} will next time...')
+        
 workbook.close()
 readworkbook.release_resources()
 # del readworkbook,sheet,i,writeworkbook,writesheet,analyse_value,roll
