@@ -146,3 +146,6 @@ input/
 *.input
 output/
 *.output
+
+# Temporary
+temp/
