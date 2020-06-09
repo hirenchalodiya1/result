@@ -7,7 +7,9 @@ def make_html(rollnumber):
         pass
     else:
         try:
-            (os.system('wget http://gseb.org/522lacigam/sci/'+first+'/'+second+'/'+rollnumber+'.html'))
+            url = f'http://gseb.org/285soipmahc/ssc/{first}/{second}/{rollnumber}.html'
+            command = f'curl -v {url} -o {rollnumber}.html'
+            os.system(command)
         except:
             print('No internet connection')
 
@@ -17,7 +19,17 @@ def get_html(rollnumber):
     first = rollnumber[:3]
     second = rollnumber[3:5]
     file_name = rollnumber + '.html'
-    url = 'http://gseb.org/522lacigam/sci/'+first+'/'+second+'/'+rollnumber+'.html'
+    url = 'http://gseb.org/285soipmahc/ssc/'+first+'/'+second+'/'+rollnumber+'.html'
 
     urllib.request.urlretrieve(url,file_name)
     print(file_name+' downloaded')
+
+def get_url(rollnumber):
+    first = rollnumber[:3]
+    second = rollnumber[3:5]
+    file_name = rollnumber + '.html'
+    url = 'http://gseb.org/285soipmahc/ssc/'+first+'/'+second+'/'+rollnumber+'.html'
+    return url
+
+def path_only(rollnumber):
+    pass
