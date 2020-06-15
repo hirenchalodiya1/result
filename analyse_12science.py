@@ -159,3 +159,63 @@ def analyse_10(content):
             ret['result'] = re.sub('Result: ', '', value)
 
     return ret
+
+def analyse_12com(content):
+    soup = BeautifulSoup(content, 'html.parser')
+    subject = []
+    marks = []
+    grade = []
+    temp = []
+    ret = {}
+    for tr in soup.find_all('tr'):
+        spans = tr.find_all('span')
+        if (len(spans) == 0):
+            pass
+        elif (len(spans) == 1):
+            temp.append(spans[0].get_text())
+        elif (len(spans) == 2):
+            temp.append(spans[0].get_text())
+            temp.append(spans[1].get_text())
+        elif (len(spans) == 4):
+            subject.append(spans[0].get_text())
+            marks.append(spans[2].get_text())
+            grade.append(spans[3].get_text())
+
+    for value in temp:
+        if 'Seat No' in value:
+            ret['seat'] = re.sub('Seat No: ', '', value)
+        elif 'Name' in value:
+            ret['name'] = re.sub('Name: ', '', value)
+        elif 'Grade' in value:
+            ret['grade'] = re.sub('Grade: ', '', value)
+        elif 'Result' in value:
+            ret['result'] = re.sub('Result: ', '', value)
+        elif 'Percentile' in value:
+            if 'Theory Percentile' in value:
+                theory_percentile = re.sub('Theory Percentile: ', '', value)
+                ret['th_p'] = re.sub('\n', '', theory_percentile)
+            elif 'Science Percentile' in value:
+                ret['sci_p'] = re.sub('Science Percentile: ', '', value)
+            else:
+                ret['percentile'] = re.sub('Percentile: ', '', value)
+
+    for i in range(len(subject)):
+        if '001' in subject[i]:
+            ret['guj'] = marks[i]
+        elif '013' in subject[i]:
+            ret['eng'] = marks[i]
+        elif '022' in subject[i]:
+            ret['echo'] = marks[i]
+        elif '046' in subject[i]:
+            ret['orc'] = marks[i]
+        elif '135' in subject[i]:
+            ret['stats'] = marks[i]
+        elif '154' in subject[i]:
+            ret['account'] = marks[i]
+        elif '337' in subject[i]:
+            ret['sec_prac'] = marks[i]
+        elif 'Sub Name' in subject[i]:
+            pass
+        else:
+            print(f'{subject[i]} is not defined')
+    return ret
